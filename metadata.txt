@@ -10,7 +10,7 @@
 name=Dissolve with stats
 qgisMinimumVersion=2.0
 description=Group geometries using one field, calculate stats on the other fields (mean, sum, count...)
-version=0.1
+version=0.2
 author=J. Pierson, UMR 5185 ADESS
 email=julie.pierson@cnrs.fr
 
@@ -22,6 +22,7 @@ category=Vector
 
 changelog=
     0.1 - First testing release
+    0.2 - added median and standard deviation, lists only vector layers, NULL values are not taken into account
 
 # Tags are comma separated with spaces allowed
 tags=dissolve,statistic

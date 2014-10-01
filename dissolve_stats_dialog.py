@@ -28,10 +28,11 @@ import os.path
 import processing
 import sys
 import time
+import math
 
 
 # the stats which can be calculated for numeric fields
-statNum = ["Mean", "Sum", "Min", "Max", "Count", "First", "Last"]
+statNum = ["Count", "First", "Last", "Max", "Mean", "Median", "Min", "Standard deviation", "Sum"]
 # the stats which can be calculated for non numeric fields
 statElse = ["Count", "First", "Last"]
 
@@ -56,9 +57,9 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
         # connect Cancel button to reject function
         self.ui.buttonBox.rejected.connect(self.reject)
 
-        # to get all the layers names to populate combo box comboLayerList
+        # to get all the vector layers names to populate combo box comboLayerList
         legendInterface = self.iface.legendInterface()
-        listLayerName = [i.name() for i in legendInterface.layers()]
+        listLayerName = [i.name() for i in legendInterface.layers() if i.type() == QgsMapLayer.VectorLayer]
         # add all these layer names to combo box comboLayerList
         self.ui.comboLayerList.addItems(listLayerName)
         
@@ -116,7 +117,7 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
         if self.ui.comboLayerList.currentText() != '':
             index = self.ui.comboLayerList.currentIndex()
             legendInterface = self.iface.legendInterface()
-            listLayers = legendInterface.layers()
+            listLayers = [layer for layer in legendInterface.layers() if layer.type() == QgsMapLayer.VectorLayer]
             selectedLayer = listLayers[index]
             outfile = QgsVectorFileWriter(self.ui.outShape.text(), "utf-8", selectedLayer.dataProvider().fields(), selectedLayer.dataProvider().geometryType(), selectedLayer.crs())
         # if no layer is selected :
@@ -148,9 +149,9 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
     # if selected value in comboLayerList changes :
     # actualize the values in comboFieldList and in tableFields
     def onChangedValueLayer(self, index):
-        # get list of all layers in QGIS
+        # get list of all vector layers in QGIS
         legendInterface = self.iface.legendInterface()
-        listLayers = legendInterface.layers()
+        listLayers = [layer for layer in legendInterface.layers() if layer.type() == QgsMapLayer.VectorLayer]
         # get name of selected layer
         provider = listLayers[index].dataProvider()
         fields = provider.fields()
@@ -216,6 +217,24 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
         if outName:
             self.ui.outShape.clear()
             self.ui.outShape.insert(outPath)
+            
+    # gets the median from a list of numbers
+    def median(self, l):
+        # sorts list, get list length
+        l.sort()
+        z = len(l)
+        # if the list has an uneven number of elements
+        if z%2:
+            return l[z/2]
+        # if the list has an even number of elements
+        else:
+            return (l[(z/2)-1] + l[z/2]) / 2.0
+            
+    # gets standard deviation from a list of numbers
+    def standard_dev(self, l):
+        mean = sum(l) / len(l)
+        dev = [(x - mean)*(x - mean) for x in l]
+        return math.sqrt(sum(dev) / len(l))
      
             
     # once the dissolve output layer is created, calculates its new attributes values
@@ -223,7 +242,7 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
         # get selected layer
         index = self.ui.comboLayerList.currentIndex()
         legendInterface = self.iface.legendInterface()
-        listLayers = legendInterface.layers()
+        listLayers = [layer for layer in legendInterface.layers() if layer.type() == QgsMapLayer.VectorLayer]
         selectedLayer = listLayers[index]
         # iterates over layer features to get attributes as a list of lists
         # uses the processing method so as to get only selected features if this option is set in the processing options
@@ -253,21 +272,28 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
                 valuesField = [feature[i] for feature in attrs]
                 for (x,y) in zip(valuesDissolveField, valuesField):
                     listAttrs[uniqueValuesDissolveField.index(x)].append(y)
+                # removes any NULL values
+                listAttrs = [[x for x in l if x] for l in listAttrs]
                 # for each list in listAttrs, calculates one value according to the chosen stat
+                # if list is empty (can happen if it contained originally only NULL values), return NULL as a result
                 if listStats[i] == "Mean":
-                    listAttrs = [sum(y) / len(y) for y in listAttrs]
+                    listAttrs = [sum(y) / len(y) if y else NULL for y in listAttrs]
                 elif listStats[i] == "Sum":
-                    listAttrs = [sum(y) for y in listAttrs]
+                    listAttrs = [sum(y) if y else NULL for y in listAttrs]
                 elif listStats[i] == "Min":
-                    listAttrs = [min(y) for y in listAttrs]
+                    listAttrs = [min(y) if y else NULL for y in listAttrs]
                 elif listStats[i] == "Max":
-                    listAttrs = [max(y) for y in listAttrs]
+                    listAttrs = [max(y) if y else NULL for y in listAttrs]
                 elif listStats[i] == "Count":
-                    listAttrs = [len(y) for y in listAttrs]
+                    listAttrs = [len(y) if y else NULL for y in listAttrs]
                 elif listStats[i] == "First":
-                    listAttrs = [y[0] for y in listAttrs]
+                    listAttrs = [y[0] if y else NULL for y in listAttrs]
                 elif listStats[i] == "Last":
-                    listAttrs = [y[-1] for y in listAttrs]
+                    listAttrs = [y[-1] if y else NULL for y in listAttrs]
+                elif listStats[i] == "Median":
+                    listAttrs = [self.median(y) if y else NULL for y in listAttrs]
+                elif listStats[i] == "Standard deviation":
+                    listAttrs = [self.standard_dev(y) if y else NULL for y in listAttrs]
                 # append each field result to listRes
                 listRes.append(listAttrs)
         return listRes
