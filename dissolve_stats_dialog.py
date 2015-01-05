@@ -181,7 +181,7 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
             # fourth column : stat
             listStat = QtGui.QComboBox()
             # if field is numeric
-            if fields[i].typeName() in ['Real', 'Integer']:
+            if fields[i].type() in [QtCore.QVariant.Int, QtCore.QVariant.Double]:
                 listStat.addItems(statNum)
             # if field is not numeric
             else:
