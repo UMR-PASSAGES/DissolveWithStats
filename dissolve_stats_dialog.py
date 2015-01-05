@@ -81,9 +81,9 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
         if result == QtGui.QFileDialog.Accepted:
 #            try:
             # get selected layer in combo box comboLayerList
-            selectedLayerName = str(self.ui.comboLayerList.currentText())
+            selectedLayerName = self.ui.comboLayerList.currentText()
             # get selected field in combo box comboFieldList
-            selectedFieldName = str(self.ui.comboFieldList.currentText())
+            selectedFieldName = self.ui.comboFieldList.currentText()
             # get fields to keep and stats to calculate
             listKeep = []
             listStats = []
