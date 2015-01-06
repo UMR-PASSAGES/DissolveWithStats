@@ -34,7 +34,7 @@ import math
 # the stats which can be calculated for numeric fields
 statNum = ["Count", "First", "Last", "Max", "Mean", "Median", "Min", "Standard deviation", "Sum"]
 # the stats which can be calculated for non numeric fields
-statElse = ["Count", "First", "Last"]
+statElse = ["Count", "Concatenation", "First", "Last", "Uniquification"]
 
 
 # create the dialog
@@ -294,6 +294,10 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
                     listAttrs = [self.median(y) if y else NULL for y in listAttrs]
                 elif listStats[i] == "Standard deviation":
                     listAttrs = [self.standard_dev(y) if y else NULL for y in listAttrs]
+                elif listStats[i] == "Concatenation":
+                    listAttrs = [", ".join(y) if y else NULL for y in listAttrs]
+                elif listStats[i] == "Uniquification":
+                    listAttrs = [", ".join(set(y)) if y else NULL for y in listAttrs]
                 # append each field result to listRes
                 listRes.append(listAttrs)
         return listRes
