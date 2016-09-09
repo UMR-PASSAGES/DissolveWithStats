@@ -11,7 +11,7 @@ name=Dissolve with stats
 qgisMinimumVersion=2.0
 description=Group geometries using one field, calculate stats on the other fields (mean, sum, count...)
 version=0.3
-author=Julie Pierson, UMR 5319 PASSAGES
+author=J. Pierson, UMR 5319 PASSAGES
 email=julie.pierson@cnrs.fr
 
 # End of mandatory metadata
