@@ -10,7 +10,7 @@
 name=Dissolve with stats
 qgisMinimumVersion=2.0
 description=Group geometries using one field, calculate stats on the other fields (mean, sum, count...)
-version=0.3
+version=0.4
 author=Julie Pierson, UMR 5319 PASSAGES
 email=julie.pierson@cnrs.fr
 about=This plugin is based upon the QGIS "dissolve" tool but adds the possibility to keep or not the other fields, and to calculate statistics on these other fields such as count, first and last for string fields, count, first, last, min, max, mean, median, standard deviation, and sum for numeric fields.
@@ -31,8 +31,8 @@ changelog=
 tags=dissolve,statistic
 
 homepage=https://github.com/juliepierson/DissolveWithStats
-tracker=
-repository=
+tracker=https://github.com/juliepierson/DissolveWithStats
+repository=https://github.com/juliepierson/DissolveWithStats
 icon=dissolve_stats.png
 # experimental flag
 experimental=True

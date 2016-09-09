@@ -5,7 +5,7 @@
 Group geometries using one field, calculate stats on the other fields (mean, sum...)
                               -------------------
         begin                : 2014-22-08
-        copyright            : (C) 2014 by J. Pierson, UMR 5185 ADESS
+        copyright            : (C) 2016 by J. Pierson, UMR 5319 PASSAGES
         email                : julie.pierson@cnrs.fr
  ***************************************************************************/
 
