@@ -294,10 +294,17 @@ class DissolveWithStatsDialog(QtGui.QDialog, Ui_DissolveWithStats):
                     listAttrs = [self.median(y) if y else NULL for y in listAttrs]
                 elif listStats[i] == "Standard deviation":
                     listAttrs = [self.standard_dev(y) if y else NULL for y in listAttrs]
+<<<<<<< HEAD
 		elif listStats[i] == "Concatenation":
 		    listAttrs = [", ".join(y) if y else NULL for y in listAttrs]
 		elif listStats[i] == "Uniquification":
 		    listAttrs = [", ".join(set(y)) if y else NULL for y in listAttrs]
+=======
+                elif listStats[i] == "Concatenation":
+                    listAttrs = [", ".join(y) if y else NULL for y in listAttrs]
+                elif listStats[i] == "Uniquification":
+                    listAttrs = [", ".join(set(y)) if y else NULL for y in listAttrs]
+>>>>>>> origin/master
                 # append each field result to listRes
                 listRes.append(listAttrs)
         return listRes
