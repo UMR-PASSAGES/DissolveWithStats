@@ -46,7 +46,7 @@ The user can choose via a checkbox wether to keep a field or not; if not, this f
 At least one field must be kept.
 The user can choose for each field, except the dissolve field, which statistic to calculate via a droplist.
 For numeric fields, availabe statistics are count, first, last, max, mean, median, min, sum and standard deviation.
-For non numeric fields, available statistics are first, last and count.
+For non numeric fields, available statistics are first, last, count and uniquification (lists all unique values, separated by a comma).
 NULL values will not be taken into account. If there are only NULL values to calculate a statistic from, NULL will be returned as a result.
 
 - Output layer
