@@ -35,7 +35,7 @@ tracker=https://github.com/juliepierson/DissolveWithStats
 repository=https://github.com/juliepierson/DissolveWithStats
 icon=dissolve_stats.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
