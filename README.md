@@ -35,7 +35,7 @@ For example, if you have a polygon layer corresponding to small administrative u
 
 You can create another polygon layer corresponding to the bigger administrative units, with the sum of the population for each of these units.
 
-<img src="dissolve_stats.png" alt="example" width="600"/>
+<img src="dissolve_stats.png" alt="example" width="800"/>
 
 You can test this plugin with the data provided in test_data folder.
 
