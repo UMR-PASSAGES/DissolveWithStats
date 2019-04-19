@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/DissolveWithStats" >
-        <file>dissolve_stats.png</file>
+    <qresource prefix="/plugins/dissolve_stats" >
+        <file>icon.png</file>
     </qresource>
 </RCC>

@@ -8,32 +8,29 @@
 
 [general]
 name=Dissolve with stats
-qgisMinimumVersion=2.0
-description=Group geometries using one field, calculate stats on the other fields (mean, sum, count...)
-version=0.4
-author=Julie Pierson, UMR 5319 PASSAGES
+qgisMinimumVersion=3.0
+description=Group entities with same value for one field, calculate statistics on the other fields
+version=0.6
+author=Julie Pierson, UMR 5319 Passages, CNRS
 email=julie.pierson@cnrs.fr
-about=This plugin is based upon the QGIS "dissolve" tool but adds the possibility to keep or not the other fields, and to calculate statistics on these other fields such as count, first and last for string fields, count, first, last, min, max, mean, median, standard deviation, and sum for numeric fields.
 
+about=Choose a layer and a field for this layer. This plugin will merge all entities with the same value for this field, and can calculate statistics for each remaining field : min, max, sum, count, mean, median, standard deviation, first, last, concatenation and uniquification. Uniquification concatenate all values from a field without any duplicate. For example, from a polygon layer of provinces, with a country ID field and a population field, you can create a country layer with the sum of the population of its provinces for each country.
+
+tracker=https://github.com/UMR-PASSAGES/DissolveWithStats/issues
+repository=https://github.com/UMR-PASSAGES/DissolveWithStats/tree/qgis3
 # End of mandatory metadata
 
-# Optional items:
+# Recommended items:
 
-category=Vector
-
-changelog=
-    0.1 - First testing release
-    0.2 - Added median and standard deviation, lists only vector layers, NULL values are not taken into account
-    0.3 - Numeric fonctions are available for PostGIS data. Thanks to DelazJ for the fix !
-    0.4 - bug corrections + functions sum, min, max... for integer 64 or double field. Thanks to FERRATON for the fix !
+# Uncomment the following line and add your changelog:
+# changelog=
 
 # Tags are comma separated with spaces allowed
-tags=dissolve,statistic
+tags=python
 
-homepage=https://github.com/juliepierson/DissolveWithStats
-tracker=https://github.com/juliepierson/DissolveWithStats
-repository=https://github.com/juliepierson/DissolveWithStats
-icon=dissolve_stats.png
+homepage=https://github.com/UMR-PASSAGES/DissolveWithStats/tree/qgis3
+category=Plugins
+icon=icon.png
 # experimental flag
 experimental=True
 
