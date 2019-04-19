@@ -12,6 +12,7 @@ For each field other than the one used to group geometries, you can choose a sta
 For example, if you have a polygon layer corresponding to small administrative units, with 2 fields :
 * one for the bigger administrative units code
 * one for the population
+
 You can create another polygon layer corresponding to the bigger administrative units, with the sum of the population for each of these units.
 
 Statistics available for numeric fields :
