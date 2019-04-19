@@ -17,7 +17,7 @@ email=julie.pierson@cnrs.fr
 about=Choose a layer and a field for this layer. This plugin will merge all entities with the same value for this field, and can calculate statistics for each remaining field : min, max, sum, count, mean, median, standard deviation, first, last, concatenation and uniquification. Uniquification concatenate all values from a field without any duplicate. For example, from a polygon layer of provinces, with a country ID field and a population field, you can create a country layer with the sum of the population of its provinces for each country.
 
 tracker=https://github.com/UMR-PASSAGES/DissolveWithStats/issues
-repository=https://github.com/UMR-PASSAGES/DissolveWithStats/tree/qgis3
+repository=https://github.com/UMR-PASSAGES/DissolveWithStats/
 # End of mandatory metadata
 
 # Recommended items:
@@ -28,11 +28,11 @@ repository=https://github.com/UMR-PASSAGES/DissolveWithStats/tree/qgis3
 # Tags are comma separated with spaces allowed
 tags=python
 
-homepage=https://github.com/UMR-PASSAGES/DissolveWithStats/tree/qgis3
+homepage=https://github.com/UMR-PASSAGES/DissolveWithStats/
 category=Plugins
 icon=icon.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
