@@ -9,12 +9,6 @@ It is therefore an ameliorated version of the vector geoprocessing tool "Dissolv
 
 For each field other than the one used to group geometries, you can choose a statistic to calculate.
 
-For example, if you have a polygon layer corresponding to small administrative units, with 2 fields :
-* one for the bigger administrative units code
-* one for the population
-
-You can create another polygon layer corresponding to the bigger administrative units, with the sum of the population for each of these units.
-
 Statistics available for numeric fields :
 * count
 * first
@@ -33,6 +27,17 @@ Statistics available for text fields :
 * concatenation
 * uniquification (same as concatenation but only concatenates unique values, no duplicates)
 
+## Example
+
+For example, if you have a polygon layer corresponding to small administrative units, with 2 fields :
+* one for the bigger administrative units code
+* one for the population
+
+You can create another polygon layer corresponding to the bigger administrative units, with the sum of the population for each of these units.
+
+<img src="dissolve_stats.png" alt="example" width="600"/>
+
+You can test this plugin with the data provided in test_data folder.
 
 ## How to use it ?
 
@@ -59,6 +64,4 @@ Note that if the input layer is a geopackage, choosing a statistic for the fid f
 
 Choose where to the output layer path and name by clicking on the ... button on the right.
 2 formats available : GeoPackage and shapefile.
-
-
 
