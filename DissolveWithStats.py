@@ -99,7 +99,7 @@ class DissolveWithStats(QgsProcessingAlgorithm):
         self.addParameter(
             QgsProcessingParameterFeatureSource(
                 self.INPUT,
-                self.tr('Input layer'),
+                self.tr('Input vector layer'),
                 [QgsProcessing.TypeVectorAnyGeometry]
             )
         )
@@ -161,16 +161,31 @@ class DissolveWithStats(QgsProcessingAlgorithm):
             source.wkbType(),
             source.sourceCrs()
         )
+        
+        Dissolve_field = self.parameterAsSource(
+            parameters,
+            self.DISSOLVE_FIELD,
+            context
+        )
+        
+        Statistics = self.parameterAsSource(
+            parameters,
+            self.STATISTICS,
+            context
+        )
 
         # run dissolve processing algorithm
-        dissolve = processing.run("qgis:dissolve", source, "false", Dissolve_field, Output_layer)
+        dissolve = processing.run("native:dissolve",
+            {'INPUT' : parameters['INPUT'], 
+            'FIELD' : parameters['DISSOLVE_FIELD'],
+            'OUTPUT' : parameters['OUTPUT']})
         # get output of dissolve algorithm
         dissolveLayer = dissolve['OUTPUT']
         dissolveLayer = processing.getObject(dissolveLayer)
         # get list of statistics to compute for each field
         listStats = Statistics.split(';')
         # get object for input layer
-        inputLayer = processing.getObject(Input_layer)
+        inputLayer = processing.getObject(source)
 
         def validation():
             # verifies that number of statistics = number of fields in input layer
@@ -282,7 +297,7 @@ class DissolveWithStats(QgsProcessingAlgorithm):
             return math.sqrt(sum(dev) / len(l))
 
         validation()
-        listRes = calculateFields(listStats, Output_layer)
-        setAttributes(listRes, Output_layer)
+        listRes = calculateFields(listStats, sink)
+        setAttributes(listRes, sink)
     
 
